@@ -1,12 +1,11 @@
 package vn.hoidanit.jobhunter.controller;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.hoidanit.jobhunter.domain.User;
 import vn.hoidanit.jobhunter.service.UserService;
+import vn.hoidanit.jobhunter.service.error.IdInvalidException;
 
 @RestController
 public class UserController {
@@ -31,26 +31,30 @@ public class UserController {
 
         User newUser = this.userService.handleCreateUser(postManUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
-        //cach2: return ResponseEntity.ok(newUser);
+        // cach2: return ResponseEntity.ok(newUser);
     }
 
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable("id") long id) {
+   
 
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") long id) throws IdInvalidException {
+        if(id>=1000){
+
+           
+            throw new IdInvalidException("so khong lon hon 1000"); }
         this.userService.handleDeleteUser(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<User> findUserById(@PathVariable("id") long id) {
-
         User user = this.userService.fetchUserById(id);
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> findAllUser() {
-        List<User> users =this.userService.fetchAllUser();
+        List<User> users = this.userService.fetchAllUser();
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
