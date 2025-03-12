@@ -1,4 +1,4 @@
-package vn.hoidanit.jobhunter.ultil;
+package vn.hoidanit.jobhunter.util;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
