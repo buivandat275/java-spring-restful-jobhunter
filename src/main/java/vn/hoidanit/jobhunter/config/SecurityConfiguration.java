@@ -52,10 +52,10 @@ public class SecurityConfiguration {
                 .formLogin(f -> f.disable())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())
                         .authenticationEntryPoint(caep))
-                .exceptionHandling(
-                        exceptions -> exceptions
-                                .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) // 401
-                                .accessDeniedHandler(new BearerTokenAccessDeniedHandler())) // 403
+                // .exceptionHandling(
+                //         exceptions -> exceptions
+                //                 .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) // 401
+                //                 .accessDeniedHandler(new BearerTokenAccessDeniedHandler())) // 403
 
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
