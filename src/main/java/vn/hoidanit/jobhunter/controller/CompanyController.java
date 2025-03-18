@@ -42,6 +42,7 @@ public class CompanyController {
     }
 
     @PostMapping("/companies")
+    @ApiMessage("create company success")
     public ResponseEntity<Company> createCompany(@Valid @RequestBody Company postManCompany) {
         Company newCompany = this.companyService.handleCreateCompany(postManCompany);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCompany);
@@ -53,19 +54,20 @@ public class CompanyController {
         @Filter Specification<Company> spec,
         Pageable pageable
        ) {
-           
         ResultPaginationDTO companies = this.companyService.fetchAllCompanies(spec, pageable);
 
         return ResponseEntity.status(HttpStatus.OK).body(companies);
     }
 
     @PutMapping("/companies")
+    @ApiMessage("update company success ")
     public ResponseEntity<Company> updateCompany(@Valid @RequestBody Company reqCompany) {
         Company company = this.companyService.handleUpdateCompany(reqCompany);
         return ResponseEntity.status(HttpStatus.OK).body(company);
     }
 
     @DeleteMapping("/companies/{id}")
+    @ApiMessage("delete company success")
     public ResponseEntity<Void> deleteCompany(@PathVariable("id") long id) throws IdInvalidException {
         this.companyService.handleDeleteCompany(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);

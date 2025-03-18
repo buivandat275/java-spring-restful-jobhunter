@@ -40,7 +40,7 @@ public class FormatRestResponse implements ResponseBodyAdvice<Object> {
             // case success
             res.setData(body);
             ApiMessage message = returnType.getMethodAnnotation(ApiMessage.class);
-            res.setMessage(message != null ? message.value() : "Call API sucsses");
+            res.setMessage(message != null ? message.value() : "Call API success");
         }
 
         return res;
