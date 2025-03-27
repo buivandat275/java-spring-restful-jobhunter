@@ -22,7 +22,6 @@ import vn.hoidanit.jobhunter.domain.respone.ResCreateUserDTO;
 import vn.hoidanit.jobhunter.domain.respone.ResUpdateUserDTO;
 import vn.hoidanit.jobhunter.domain.respone.ResUserDTO;
 import vn.hoidanit.jobhunter.domain.respone.ResultPaginationDTO;
-import vn.hoidanit.jobhunter.repository.CompanyRepository;
 import vn.hoidanit.jobhunter.service.UserService;
 import vn.hoidanit.jobhunter.util.annotation.ApiMessage;
 import vn.hoidanit.jobhunter.util.error.IdInvalidException;
@@ -31,22 +30,12 @@ import vn.hoidanit.jobhunter.util.error.IdInvalidException;
 @RequestMapping("/api/v1")
 public class UserController {
 
-    private final CompanyRepository companyRepository;
-
-    private final CompanyController companyController;
-
-    private final AuthController authController;
-
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, PasswordEncoder passwordEncoder, AuthController authController,
-            CompanyController companyController, CompanyRepository companyRepository) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder ) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
-        this.authController = authController;
-        this.companyController = companyController;
-        this.companyRepository = companyRepository;
     }
 
     @PostMapping("/users")
