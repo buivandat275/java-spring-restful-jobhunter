@@ -50,12 +50,12 @@ public class JobController {
     @ApiMessage("update job success")
     public ResponseEntity<ResUpdateJobDTO> updateJob(@RequestBody Job job) throws IdInvalidException
     {   
+        Optional<Job> currentJob = this.jobService.fetchJobById(job.getId()); 
         boolean existJobById = this.jobService.existById(job.getId());
         if(existJobById != true){
             throw new IdInvalidException("Job với id = "+job.getId()+" không tồn tại");
         }
-        ResUpdateJobDTO currentJob = this.jobService.updateJob(job);
-        return ResponseEntity.status(HttpStatus.OK).body(currentJob);
+        return ResponseEntity.ok().body(this.jobService.updateJob(job, currentJob.get()));
     }
 
     @DeleteMapping("/jobs/{id}")

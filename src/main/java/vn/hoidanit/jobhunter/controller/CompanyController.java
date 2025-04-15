@@ -11,6 +11,7 @@ import vn.hoidanit.jobhunter.service.CompanyService;
 import vn.hoidanit.jobhunter.util.annotation.ApiMessage;
 import vn.hoidanit.jobhunter.util.error.IdInvalidException;
 
+import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -65,6 +66,14 @@ public class CompanyController {
     public ResponseEntity<Void> deleteCompany(@PathVariable("id") long id) throws IdInvalidException {
         this.companyService.handleDeleteCompany(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @GetMapping("/companies/{id}")
+    @ApiMessage("fetch company by id")
+    public ResponseEntity<Company> getCompanyById(@PathVariable("id") long id) {
+        Optional<Company> companyOptional = this.companyService.findById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(companyOptional.get());
     }
 
 }
