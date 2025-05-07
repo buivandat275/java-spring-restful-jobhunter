@@ -1,7 +1,6 @@
 package vn.hoidanit.jobhunter.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.time.Instant;
 import java.util.Arrays;
