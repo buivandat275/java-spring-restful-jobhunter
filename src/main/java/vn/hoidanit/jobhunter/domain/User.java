@@ -2,7 +2,6 @@ package vn.hoidanit.jobhunter.domain;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.PrimitiveIterator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

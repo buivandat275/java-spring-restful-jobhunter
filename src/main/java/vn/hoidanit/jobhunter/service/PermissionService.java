@@ -27,6 +27,16 @@ public class PermissionService {
         );
 
     }
+
+    public boolean isSameName(Permission p){
+        Permission permissionDB = this.fetchById(p.getId());
+        if(permissionDB != null){
+            if(permissionDB.getName().equals(p.getName()))
+            return true;
+        }
+        return false;
+    }
+
     public Permission create(Permission permission) {
 
         permission = this.permissionRepository.save(permission);
