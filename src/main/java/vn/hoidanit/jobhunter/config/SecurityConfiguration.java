@@ -44,7 +44,8 @@ public class SecurityConfiguration {
         String[] whiteList ={
             "/", 
             "/api/v1/auth/login", "/api/v1/auth/refresh", "/api/v1/auth/register",
-            "/storage/**"
+            "/storage/**",
+            "/api/v1/email/**"
         };
         http
                 .csrf(c -> c.disable())
@@ -53,9 +54,9 @@ public class SecurityConfiguration {
 
                         authz -> authz
                                 .requestMatchers(whiteList).permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/companies").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/jobs").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/skills").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/companies/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/jobs/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/skills/**").permitAll()
                                 
                                 .anyRequest().authenticated())
                 .formLogin(f -> f.disable())
