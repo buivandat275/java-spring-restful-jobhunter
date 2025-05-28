@@ -52,11 +52,11 @@ public class SubscriberController {
 
      @PostMapping("/subscribers/skills")
     @ApiMessage("get Subscribers skill")
-    public ResponseEntity<Subscriber> getSubcribersSkill(@Valid @RequestBody Subscriber subscriber)
+    public ResponseEntity<Subscriber> getSubscribersSkill()
             throws IdInvalidException {
                 String email = SecurityUtil.getCurrentUserLogin().isPresent() == true ?
                 SecurityUtil.getCurrentUserLogin().get() : "";
         
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.subscriberService.findByEmail(email));
+        return ResponseEntity.ok().body(this.subscriberService.findByEmail(email));
     }
 }

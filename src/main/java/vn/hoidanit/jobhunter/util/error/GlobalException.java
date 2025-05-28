@@ -18,6 +18,16 @@ import vn.hoidanit.jobhunter.domain.respone.RestResponse;
 
 @RestControllerAdvice
 public class GlobalException {
+    //handle all exception
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<RestResponse<Object>> handleAllException(Exception ex) {
+        RestResponse<Object> res = new RestResponse<Object>();
+        res.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        res.setMessage(ex.getMessage());
+        res.setError("Internal Server Error");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(res);
+    }
+
     @ExceptionHandler(value = { UsernameNotFoundException.class, BadCredentialsException.class,
             IdInvalidException.class })
     public ResponseEntity<RestResponse<Object>> handleIdException(Exception ex) {
@@ -38,6 +48,7 @@ public class GlobalException {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
+
     @ExceptionHandler(value = { PermissionException.class })
     public ResponseEntity<RestResponse<Object>> handlePermissionException(Exception ex) {
         RestResponse<Object> res = new RestResponse<Object>();
@@ -64,12 +75,12 @@ public class GlobalException {
     }
 
     @ExceptionHandler(value = { StorageException.class })
-public ResponseEntity<RestResponse<Object>> handleFileUploadException(Exception ex) {
-    RestResponse<Object> res = new RestResponse<Object>();
-    res.setStatusCode(HttpStatus.BAD_REQUEST.value());
-    res.setMessage(ex.getMessage());
-    res.setError("Exception upload file...");
+    public ResponseEntity<RestResponse<Object>> handleFileUploadException(Exception ex) {
+        RestResponse<Object> res = new RestResponse<Object>();
+        res.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        res.setMessage(ex.getMessage());
+        res.setError("Exception upload file...");
 
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
-}
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
+    }
 }
